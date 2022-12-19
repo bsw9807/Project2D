@@ -1,144 +1,137 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Redcode.Pools;
 
 
-public enum ClassType
+public class UnitBase : MonoBehaviour
 {
-    CT_SwordMan,
-    CT_Archer,
-    CT_Guarder,
-    CT_Wizard,
-}
+    public SPUM_Prefabs spumPref;
 
-public enum AI_State
-{
-    AI_Idle,
-    AI_Move,
-    AI_Attack,
-
-}
-
-public class UnitBase : MonoBehaviour, IPoolObject
-{
-    [SerializeField]
-    private float moveSpeed;
-    [SerializeField]
-    private ClassType classType;
-    [SerializeField]
-    private string poolName;
-    public string PoolName
+    public enum UnitState
     {
-        get { return poolName; }
+        idle,
+        run,
+        attack,
+        skill,
+        stun,
+        death
     }
 
-    [SerializeField]
-    private int maxHP;
-    private int currentHP;
-    private bool isAlive;
-    private Vector3 move;
+    public UnitState unitState = UnitState.idle;
 
-    [SerializeField]
-    private float attackRate;
-    private float attackDelay = 0f;
-    [SerializeField]
-    private float attackRange;
+    public UnitBase target;
 
-    private Animator animator;
+    public float unitHP; //체력
+    public float unitMS; //이동속도
+    public float unitFR; //프레임
+    public float unitAT; //공격력
+    public float unitAS; //공격속도
+    public float unitAR; //공격범위
 
-    private AI_State state = AI_State.AI_Idle;
-    private Vector3 rayDir = Vector3.zero;
-    private int mask;
+    // Move
+    public Vector2 dirVec;
 
+    public float findTimer;
 
-    private void Awake()
+    void Start()
     {
-        animator = GetComponent<Animator>();
+        
     }
-    public void InitData()
+
+    void Update()
     {
-        currentHP = maxHP;
-        isAlive = true;
-        state = AI_State.AI_Move;
-
-
-        if (moveSpeed < 0f)//레드팀
+        findTimer += Time.deltaTime;
+        if (findTimer > SoonsoonData.Instance.unitManager.findTimer)
         {
-            rayDir.x = -1f;
-            mask = 0 << LayerMask.NameToLayer("Blue");
-        }
-        else
-        {
-            rayDir.x = 1f;
-            mask = 0 << LayerMask.NameToLayer("Red");
+            CheckState();
+            findTimer = 0;
         }
     }
 
-    private void Update()
+    void SetInitState()
     {
-        switch (state)
+        unitState = UnitState.idle;
+    }
+
+    void CheckState()
+    {
+        switch (unitState)
         {
-            case AI_State.AI_Move:
-                Move_State();
+            case UnitState.idle:
+                FindTarget();
                 break;
-            case AI_State.AI_Attack:
-                Attack_State();
+
+            case UnitState.run:
+                FindTarget();
+                DoMove();
                 break;
-            case AI_State.AI_Idle:
+
+            case UnitState.attack:
+                break;
+
+            case UnitState.skill:
+                break;
+
+            case UnitState.stun:
+                break;
+
+            case UnitState.death:
                 break;
         }
     }
-    private void Move_State()
-    {
-        move.x = moveSpeed * Time.deltaTime;
-        move.y = 0f;
-        move.z = 0f;
-        transform.Translate(move);
-        CheckEnemy();
-    }
 
-
-    private void Attack_State()
+    void SetState(UnitState state)
     {
-        attackDelay -= Time.deltaTime;
-        if (attackDelay <= 0f)
+        unitState = state;
+        switch (unitState)
         {
-            attackDelay = attackRate;
+            case UnitState.idle:
+                spumPref.PlayAnimation(state.ToString("0"));
+                break;
 
-            animator.SetTrigger("doAttack");
+            case UnitState.run:
+                spumPref.PlayAnimation(state.ToString("1"));
+                break;
 
-            // 공격 
+            case UnitState.attack:
+                spumPref.PlayAnimation(state.ToString("4"));//4,7 Sword 5,8 Bow 6,9 Magic
+                break;
+
+            case UnitState.skill:
+                spumPref.PlayAnimation(state.ToString("7"));
+                break;
+
+            case UnitState.stun:
+                spumPref.PlayAnimation(state.ToString("3"));
+                break;
+
+            case UnitState.death:
+                spumPref.PlayAnimation(state.ToString("2"));
+                break;
         }
     }
 
-    private void CheckEnemy()
+    void FindTarget()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, rayDir, attackRange, mask);
-        if (hit)
-        {
-            state = AI_State.AI_Attack;
-            Debug.DrawRay(transform.position, rayDir, Color.green);
-        }
-        else
-            Debug.DrawRay(transform.position, rayDir, Color.red);
+        target = SoonsoonData.Instance.unitManager.GetTarget(this);
     }
 
-
-
-    #region POOLS
-    public void OnCreatedInPool() // 오브젝트를 생성할때 
+    void DoMove()
     {
+        if (CheckTarget()) return;
+
+        Vector2 tVec = (Vector2)(target.transform.localPosition - transform.position);
+        dirVec = tVec.normalized;
+
+        transform.position += (Vector3)dirVec * unitMS * Time.deltaTime;
     }
 
-    public void OnGettingFromPool()
+    bool CheckTarget()
     {
-        if (moveSpeed < 0f) // 레드팀
-            transform.position = new Vector3(4.8f, 0f, 0f);
-        else
-            transform.position = new Vector3(-4.8f, 0f, 0f);
+        if (target == null) return false;
+        if (target.unitState == UnitState.death) return false;
+        if (target.gameObject.activeInHierarchy) return false;
 
-        InitData();
+        return true;
     }
-    #endregion
 }

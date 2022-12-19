@@ -1,37 +1,85 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Redcode.Pools;
 
 public class UnitManager : MonoBehaviour
 {
-    private static UnitManager inst;
-    public static UnitManager Inst
+    public float findTimer;
+
+    public List<Transform> unitPool = new List<Transform>();
+    public List<UnitBase> fUnitList = new List<UnitBase>();
+    public List<UnitBase> eUnitList = new List<UnitBase>();
+    
+    void Awake()
     {
-        get { return inst; }
+        SoonsoonData.Instance.unitManager = this;
     }
 
-    private PoolManager poolManager;
-    private void Awake()
+    void Start()
     {
-        if (inst)
+        SetUnitList();
+    }
+
+    void Update()
+    {
+
+    }
+
+    void SetUnitList()
+    {
+        fUnitList.Clear();
+        eUnitList.Clear();
+
+        for (var i = 0; i < unitPool.Count; i++)
         {
-            Destroy(gameObject);
-            return;
-        }
-        else
-        {
-            inst = this;
-            poolManager = GetComponent<PoolManager>();
+            for (var j = 0; j < unitPool[i].childCount; j++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        fUnitList.Add(unitPool[i].GetChild(j).GetComponent<UnitBase>());
+                        unitPool[i].GetChild(j).gameObject.tag = "Friend";
+                        break;
+                    case 1:
+                        eUnitList.Add(unitPool[i].GetChild(j).GetComponent<UnitBase>());
+                        unitPool[i].GetChild(j).gameObject.tag = "Enemy";
+                        break;
+                }
+            }
         }
     }
 
-    public void SpawnUnit(int unitIndex)
+    public UnitBase GetTarget(UnitBase unit)
     {
-        UnitBase newUnit = poolManager.GetFromPool<UnitBase>(unitIndex);
-    }
-    public void ReturnPool(UnitBase unit)
-    {
-        poolManager.TakeToPool<UnitBase>(unit.PoolName, unit);
+        UnitBase tUnit = null;
+
+        List<UnitBase> tList = new List<UnitBase>();
+        switch (unit.tag)
+        {
+            case "Friend": tList = eUnitList; break;
+            case "Enemy": tList = fUnitList; break;
+        }
+
+        float tSDis = 999999;
+
+        for(var i = 0; i < tList.Count; i++)
+        {
+            float tDis = ((Vector2)tList[0].transform.localPosition - (Vector2)unit.transform.localPosition).sqrMagnitude;
+            if(tDis <= unit.unitAR * unit.unitAR)
+            {
+                if (tList[i].gameObject.activeInHierarchy)
+                {
+                    if (tList[i].unitState != UnitBase.UnitState.death)
+                    {
+                        if (tDis < tSDis)
+                        {
+                            tUnit = tList[i];
+                            tSDis = tDis;
+                        }
+                    }
+                }
+            }
+        }
+        return tUnit;
     }
 }
