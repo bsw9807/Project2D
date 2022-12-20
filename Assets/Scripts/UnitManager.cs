@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class UnitManager : MonoBehaviour
 {
-    public float findTimer;
-
     public List<Transform> unitPool = new List<Transform>();
     public List<UnitBase> fUnitList = new List<UnitBase>();
     public List<UnitBase> eUnitList = new List<UnitBase>();
     
     void Awake()
     {
-        SoonsoonData.Instance.unitManager = this;
     }
 
     void Start()
@@ -47,39 +44,5 @@ public class UnitManager : MonoBehaviour
                 }
             }
         }
-    }
-
-    public UnitBase GetTarget(UnitBase unit)
-    {
-        UnitBase tUnit = null;
-
-        List<UnitBase> tList = new List<UnitBase>();
-        switch (unit.tag)
-        {
-            case "Friend": tList = eUnitList; break;
-            case "Enemy": tList = fUnitList; break;
-        }
-
-        float tSDis = 999999;
-
-        for(var i = 0; i < tList.Count; i++)
-        {
-            float tDis = ((Vector2)tList[0].transform.localPosition - (Vector2)unit.transform.localPosition).sqrMagnitude;
-            if(tDis <= unit.unitAR * unit.unitAR)
-            {
-                if (tList[i].gameObject.activeInHierarchy)
-                {
-                    if (tList[i].unitState != UnitBase.UnitState.death)
-                    {
-                        if (tDis < tSDis)
-                        {
-                            tUnit = tList[i];
-                            tSDis = tDis;
-                        }
-                    }
-                }
-            }
-        }
-        return tUnit;
     }
 }
