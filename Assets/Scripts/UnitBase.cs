@@ -13,7 +13,13 @@ public class UnitBase : MonoBehaviour
     RectTransform hpBar;
     Image currentHPbar;
 
-    public Transform targetTF;
+    public List<GameObject> FoundObjects;
+    public GameObject target;
+    float tDis;
+
+    float atkDelay;
+
+    public Vector2 dirVec;
 
     #region UnitStatus
     public string unitName; // ¿Ø¥÷ ¿Ã∏ß
@@ -48,109 +54,27 @@ public class UnitBase : MonoBehaviour
 
     void Start()
     {
-        hpBar = Instantiate(prefHpBar, canvas.transform).GetComponent<RectTransform>();
         #region 01_Warrior_Status
         if (name.Equals("01_Warrior"))
         {
             SetUnitStatus("01_Warrior", 1000, 50, 100, 1, 10);
         }
         #endregion
-        currentHPbar = hpBar.transform.GetChild(0).GetComponent<Image>();
 
+        UnitHP();
         SetAS(unitAS);
         FindTarget();
     }
 
     void Update()
     {
-        Vector3 hpBarPos = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + hpBar_h, 0));
-        hpBar.position = hpBarPos;
-        currentHPbar.fillAmount = currentHP / unitHP;
-
-        unitAS -= Time.deltaTime;
-        float tDis = Vector3.Distance(transform.position, targetTF.position);
-
-        FaceTarget();
-        if(tDis <= unitDis)
-        {
-            AttackTarget();
-        }
-        else
-        {
-            MoveToTarget();
-        }
+        UnitHPUpdate();
+        CheckState();
+        UnitAI();
     }
 
-    public List<GameObject> FoundTargets;
-    public GameObject target;
-    public string TagName;
-    public float shortDis;
-
-    void FindTarget()
-    {
-        switch (gameObject.tag)
-        {
-            case "Friend": TagName = "Enemy"; break;
-            case "Enemy": TagName = "Friend"; break;
-        }
-        FoundTargets = new List<GameObject>(GameObject.FindGameObjectsWithTag(TagName));
-        shortDis = Vector3.Distance(gameObject.transform.position, FoundTargets[0].transform.position);
-        target = FoundTargets[0];
-
-        foreach(GameObject found in FoundTargets)
-        {
-            float Dis = Vector3.Distance(gameObject.transform.position, found.transform.position);
-            
-            if (Dis <= shortDis)
-            {
-                target = found;
-                shortDis = Dis;
-            }
-        }
-    }
-
-    void FaceTarget()   //≈∏∞Ÿ πŸ∂Û∫∏±‚
-    {
-
-    }
-
-    void AttackTarget() //≈∏∞Ÿ ∞¯∞›
-    {
-
-    }
-
-    void MoveToTarget() //≈∏∞Ÿ¿∏∑Œ ¿Ãµø
-    {
-
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Enemy"))
-        {
-            currentHP -= unitAD;
-            if(currentHP <= 0)
-            {
-                onDie();
-            }
-        }
-    }
-
-    void onDie()
-    {
-        unitState = UnitState.dead;
-        Destroy(gameObject, 1);
-        Destroy(hpBar.gameObject, 1);
-    }
-
-    void SetAS(float AS)
-    {
-        animator.SetFloat("AttackSpeed", AS);
-    }
-
-    #region SetState
     public UnitState unitState = UnitState.idle;
-    
+
     void SetState(UnitState state)
     {
         unitState = state;
@@ -185,5 +109,148 @@ public class UnitBase : MonoBehaviour
                 break;
         }
     }
-    #endregion
+
+    void CheckState()
+    {
+        switch (unitState)
+        {
+            case UnitState.idle:
+                FindTarget();
+                break;
+
+            case UnitState.run:
+                MoveToTarget();
+                break;
+
+            case UnitState.attack:
+                AttackTarget();
+                break;
+
+            case UnitState.skill:
+                break;
+
+            case UnitState.stun:
+                break;
+
+            case UnitState.dead:
+                onDie();
+                break;
+        }
+    }
+
+    void UnitHP()
+    {
+        hpBar = Instantiate(prefHpBar, canvas.transform).GetComponent<RectTransform>();
+        currentHPbar = hpBar.transform.GetChild(0).GetComponent<Image>();
+    }
+
+    void UnitHPUpdate()
+    {
+        Vector3 hpBarPos = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + hpBar_h, 0));
+        hpBar.position = hpBarPos;
+        currentHPbar.fillAmount = currentHP / unitHP;
+
+        if(currentHP <= 0)
+        {
+            onDie();
+        }
+    }
+
+    void SetAS(float AS)
+    {
+        animator.SetFloat("AttackSpeed", AS);
+        unitAS = AS;
+    }
+
+    void UnitAI()
+    {
+        atkDelay -= Time.deltaTime;
+        if(atkDelay < 0) atkDelay = 0;
+
+        float dis = Vector3.Distance(transform.position, target.transform.position);
+
+        if (atkDelay == 0 && CheckTarget())
+        {
+            FaceTarget();
+            if (dis <= unitAD)
+            {
+                unitState = UnitState.attack;
+            }
+            else
+            {
+                unitState = UnitState.run;
+            }
+        }
+        else
+        {
+            unitState = UnitState.idle;
+        }
+    }
+
+    void FindTarget()
+    {
+        switch(gameObject.tag)
+        {
+            case "Friend":
+                FoundObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy")); break;
+            case "Enemy":
+                FoundObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Friend")); break;
+        }
+        tDis = Vector2.Distance(gameObject.transform.position, FoundObjects[0].transform.position);
+
+        target = FoundObjects[0];
+
+        foreach (GameObject found in FoundObjects)
+        {
+            float Dis = Vector2.Distance(gameObject.transform.position, found.transform.position);
+
+            if(Dis < tDis)
+            {
+                target = found;
+                tDis = Dis;
+            }
+        }
+    }
+
+    void FaceTarget()   //≈∏∞Ÿ πŸ∂Û∫∏±‚
+    {
+        if (target.transform.position.x - transform.position.x < 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+    }
+
+    void AttackTarget() //≈∏∞Ÿ ∞¯∞›
+    {
+        target.GetComponent<UnitBase>().currentHP -= unitAD;
+        unitState = UnitState.attack;
+    }
+
+    void MoveToTarget() //≈∏∞Ÿ¿∏∑Œ ¿Ãµø
+    {
+        Vector2 dir = (Vector2)(target.transform.localPosition - transform.position);
+        dirVec = dir.normalized;
+        transform.position += (Vector3)dirVec * unitMS * Time.deltaTime;
+        unitState = UnitState.run;
+    }
+
+    void onDie() // ¿Ø¥÷ ªÁ∏¡ »ƒ Ω««‡
+    {
+        unitState = UnitState.dead;
+        Destroy(gameObject, 3);
+        Destroy(hpBar.gameObject, 3);
+    }
+
+    bool CheckTarget() //≈∏∞Ÿ ¡∏¿Á ø©∫Œ √º≈©
+    {
+        if (target == null) return false;
+        if(target.GetComponent<UnitBase>().unitState == UnitState.dead) return false;
+        if (!target.activeInHierarchy) return false;
+
+        return true;
+    }
 }

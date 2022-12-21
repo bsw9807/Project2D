@@ -7,7 +7,7 @@ public class UnitManager : MonoBehaviour
     public List<Transform> unitPool = new List<Transform>();
     public List<UnitBase> fUnitList = new List<UnitBase>();
     public List<UnitBase> eUnitList = new List<UnitBase>();
-    
+
     void Awake()
     {
     }
@@ -45,4 +45,5 @@ public class UnitManager : MonoBehaviour
             }
         }
     }
+
 }
