@@ -161,20 +161,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3494cbae0a1a58d47a7cf3258a9ade8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1560654919}
-  prefHpBar: {fileID: 5995936155317214536, guid: 3c7abcbf374df944d89dfb69a4b24fe5, type: 3}
-  canvas: {fileID: 225366704}
-  hpBar_h: 1
   FoundObjects: []
   target: {fileID: 0}
+  tDis: 0
   dirVec: {x: 0, y: 0}
+  animator: {fileID: 1560654919}
+  prefHpBar: {fileID: 4446275246991727336, guid: 4c2bcd6ec43dfb24c8de813f858ef374, type: 3}
+  prefMpBar: {fileID: 8311627526140296371, guid: ae34422ffc819bd489a9919e06200357, type: 3}
+  canvas: {fileID: 225366704}
+  hpBar_h: -0.17
+  mpBar_h: -0.26
+  atkDelay: 0
   unitName: 
-  unitHP: 100
-  currentHP: 100
+  unitHP: 1000
+  currentHP: 1000
+  unitMP: 1000
+  currentMP: 1000
   unitMS: 1
-  unitAD: 10
+  unitAD: 100
   unitAS: 1
   unitDis: 1
+  unitType: Assassin
   unitState: 0
 --- !u!50 &80275040
 Rigidbody2D:
@@ -222,8 +229,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106013851}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.290297, y: -7.016316, z: -0.5459791}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -389,8 +396,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 322264234}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20.058819, y: -4.8847165, z: -0.51349854}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -505,7 +512,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9085876441876125128, guid: bf2e9039e5e2e104daa8cfa5c54edf7a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 9085876441876125128, guid: bf2e9039e5e2e104daa8cfa5c54edf7a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -525,11 +532,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9085876441876125128, guid: bf2e9039e5e2e104daa8cfa5c54edf7a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -2.73
+      value: -3.3
       objectReference: {fileID: 0}
     - target: {fileID: 9085876441876125128, guid: bf2e9039e5e2e104daa8cfa5c54edf7a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0
+      value: -0.79
       objectReference: {fileID: 0}
     - target: {fileID: 9085876441876125128, guid: bf2e9039e5e2e104daa8cfa5c54edf7a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -677,20 +684,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3494cbae0a1a58d47a7cf3258a9ade8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 548731453}
-  prefHpBar: {fileID: 5995936155317214536, guid: 3c7abcbf374df944d89dfb69a4b24fe5, type: 3}
-  canvas: {fileID: 225366704}
-  hpBar_h: 1
   FoundObjects: []
   target: {fileID: 0}
+  tDis: 0
   dirVec: {x: 0, y: 0}
+  animator: {fileID: 548731453}
+  prefHpBar: {fileID: 4446275246991727336, guid: 4c2bcd6ec43dfb24c8de813f858ef374, type: 3}
+  prefMpBar: {fileID: 8311627526140296371, guid: ae34422ffc819bd489a9919e06200357, type: 3}
+  canvas: {fileID: 225366704}
+  hpBar_h: -0.17
+  mpBar_h: -0.26
+  atkDelay: 0
   unitName: 
-  unitHP: 100
-  currentHP: 100
+  unitHP: 1000
+  currentHP: 1000
+  unitMP: 1000
+  currentMP: 1000
   unitMS: 1
-  unitAD: 10
+  unitAD: 100
   unitAS: 1
   unitDis: 1
+  unitType: Priest
   unitState: 0
 --- !u!50 &624109606
 Rigidbody2D:
@@ -788,7 +802,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4079781621838524689, guid: 279812bde964a304bbbec04d77347cd2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4079781621838524689, guid: 279812bde964a304bbbec04d77347cd2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -808,11 +822,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4079781621838524689, guid: 279812bde964a304bbbec04d77347cd2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -5.05
+      value: -3.22
       objectReference: {fileID: 0}
     - target: {fileID: 4079781621838524689, guid: 279812bde964a304bbbec04d77347cd2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.26
+      value: 2.78
       objectReference: {fileID: 0}
     - target: {fileID: 4079781621838524689, guid: 279812bde964a304bbbec04d77347cd2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -829,6 +843,10 @@ PrefabInstance:
     - target: {fileID: 4502375021943942281, guid: 279812bde964a304bbbec04d77347cd2, type: 3}
       propertyPath: m_Name
       value: 04_Priest (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4502375021943942281, guid: 279812bde964a304bbbec04d77347cd2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4502375021943942281, guid: 279812bde964a304bbbec04d77347cd2, type: 3}
       propertyPath: m_TagString
@@ -946,6 +964,10 @@ PrefabInstance:
       value: 03_Magician (1)
       objectReference: {fileID: 0}
     - target: {fileID: 116613325407960902, guid: 5f58c43e15fc75f4ea3f5d9919474a2a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 116613325407960902, guid: 5f58c43e15fc75f4ea3f5d9919474a2a, type: 3}
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
@@ -1011,7 +1033,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4914191525372020902, guid: 5f58c43e15fc75f4ea3f5d9919474a2a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.03
+      value: -0.07
       objectReference: {fileID: 0}
     - target: {fileID: 4914191525372020902, guid: 5f58c43e15fc75f4ea3f5d9919474a2a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1031,11 +1053,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4914191525372020902, guid: 5f58c43e15fc75f4ea3f5d9919474a2a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -5.81
+      value: -3.34
       objectReference: {fileID: 0}
     - target: {fileID: 4914191525372020902, guid: 5f58c43e15fc75f4ea3f5d9919474a2a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1.85
+      value: -4.28
       objectReference: {fileID: 0}
     - target: {fileID: 4914191525372020902, guid: 5f58c43e15fc75f4ea3f5d9919474a2a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1121,20 +1143,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3494cbae0a1a58d47a7cf3258a9ade8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 939605383}
-  prefHpBar: {fileID: 5995936155317214536, guid: 3c7abcbf374df944d89dfb69a4b24fe5, type: 3}
-  canvas: {fileID: 225366704}
-  hpBar_h: 1
   FoundObjects: []
   target: {fileID: 0}
+  tDis: 0
   dirVec: {x: 0, y: 0}
+  animator: {fileID: 939605383}
+  prefHpBar: {fileID: 4446275246991727336, guid: 4c2bcd6ec43dfb24c8de813f858ef374, type: 3}
+  prefMpBar: {fileID: 8311627526140296371, guid: ae34422ffc819bd489a9919e06200357, type: 3}
+  canvas: {fileID: 225366704}
+  hpBar_h: -0.17
+  mpBar_h: -0.26
+  atkDelay: 0
   unitName: 
-  unitHP: 100
-  currentHP: 100
+  unitHP: 1000
+  currentHP: 1000
+  unitMP: 1000
+  currentMP: 1000
   unitMS: 1
-  unitAD: 10
+  unitAD: 100
   unitAS: 1
   unitDis: 1
+  unitType: Archer
   unitState: 0
 --- !u!50 &834467725
 Rigidbody2D:
@@ -1279,20 +1308,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3494cbae0a1a58d47a7cf3258a9ade8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 624343169}
-  prefHpBar: {fileID: 5995936155317214536, guid: 3c7abcbf374df944d89dfb69a4b24fe5, type: 3}
-  canvas: {fileID: 225366704}
-  hpBar_h: 1
   FoundObjects: []
   target: {fileID: 0}
+  tDis: 0
   dirVec: {x: 0, y: 0}
+  animator: {fileID: 624343169}
+  prefHpBar: {fileID: 4446275246991727336, guid: 4c2bcd6ec43dfb24c8de813f858ef374, type: 3}
+  prefMpBar: {fileID: 8311627526140296371, guid: ae34422ffc819bd489a9919e06200357, type: 3}
+  canvas: {fileID: 225366704}
+  hpBar_h: -0.17
+  mpBar_h: -0.26
+  atkDelay: 0
   unitName: 
-  unitHP: 100
-  currentHP: 100
+  unitHP: 1000
+  currentHP: 1000
+  unitMP: 1000
+  currentMP: 1000
   unitMS: 1
-  unitAD: 10
+  unitAD: 100
   unitAS: 1
   unitDis: 1
+  unitType: Warrior
   unitState: 0
 --- !u!50 &1075824125
 Rigidbody2D:
@@ -1339,7 +1375,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307971308}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.290297, y: 7.016316, z: 0.5459791}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1357,6 +1393,10 @@ PrefabInstance:
     - target: {fileID: 1024219718513245973, guid: 8834b6c1e94cbfd41b218e36cf2ba439, type: 3}
       propertyPath: m_Name
       value: 02_Archer (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1024219718513245973, guid: 8834b6c1e94cbfd41b218e36cf2ba439, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1024219718513245973, guid: 8834b6c1e94cbfd41b218e36cf2ba439, type: 3}
       propertyPath: m_TagString
@@ -1428,7 +1468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5871524800931217118, guid: 8834b6c1e94cbfd41b218e36cf2ba439, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.01
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 5871524800931217118, guid: 8834b6c1e94cbfd41b218e36cf2ba439, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1448,11 +1488,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5871524800931217118, guid: 8834b6c1e94cbfd41b218e36cf2ba439, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -7.34
+      value: -3.29
       objectReference: {fileID: 0}
     - target: {fileID: 5871524800931217118, guid: 8834b6c1e94cbfd41b218e36cf2ba439, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.76
+      value: -2.34
       objectReference: {fileID: 0}
     - target: {fileID: 5871524800931217118, guid: 8834b6c1e94cbfd41b218e36cf2ba439, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1567,7 +1607,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3485172939422775243, guid: 6177875dd7a2d0a4fa1bf0222510008a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.05
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 3485172939422775243, guid: 6177875dd7a2d0a4fa1bf0222510008a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1587,11 +1627,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3485172939422775243, guid: 6177875dd7a2d0a4fa1bf0222510008a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -3.93
+      value: -3.19
       objectReference: {fileID: 0}
     - target: {fileID: 3485172939422775243, guid: 6177875dd7a2d0a4fa1bf0222510008a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2.61
+      value: 0.81
       objectReference: {fileID: 0}
     - target: {fileID: 3485172939422775243, guid: 6177875dd7a2d0a4fa1bf0222510008a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1608,6 +1648,10 @@ PrefabInstance:
     - target: {fileID: 4965539572778683759, guid: 6177875dd7a2d0a4fa1bf0222510008a, type: 3}
       propertyPath: m_Name
       value: 05_Assassin (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965539572778683759, guid: 6177875dd7a2d0a4fa1bf0222510008a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4965539572778683759, guid: 6177875dd7a2d0a4fa1bf0222510008a, type: 3}
       propertyPath: m_TagString
@@ -1658,20 +1702,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3494cbae0a1a58d47a7cf3258a9ade8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 741650768}
-  prefHpBar: {fileID: 5995936155317214536, guid: 3c7abcbf374df944d89dfb69a4b24fe5, type: 3}
-  canvas: {fileID: 225366704}
-  hpBar_h: 1
   FoundObjects: []
   target: {fileID: 0}
+  tDis: 0
   dirVec: {x: 0, y: 0}
+  animator: {fileID: 741650768}
+  prefHpBar: {fileID: 4446275246991727336, guid: 4c2bcd6ec43dfb24c8de813f858ef374, type: 3}
+  prefMpBar: {fileID: 8311627526140296371, guid: ae34422ffc819bd489a9919e06200357, type: 3}
+  canvas: {fileID: 225366704}
+  hpBar_h: -0.17
+  mpBar_h: -0.26
+  atkDelay: 0
   unitName: 
-  unitHP: 100
-  currentHP: 100
+  unitHP: 1000
+  currentHP: 1000
+  unitMP: 1000
+  currentMP: 1000
   unitMS: 1
-  unitAD: 10
+  unitAD: 100
   unitAS: 1
   unitDis: 1
+  unitType: Magician
   unitState: 0
 --- !u!50 &1715192881
 Rigidbody2D:
@@ -1805,7 +1856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1948992969157199702, guid: 5141059a05cdfbf4e9e4801cbc2b3260, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.04
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 1948992969157199702, guid: 5141059a05cdfbf4e9e4801cbc2b3260, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1825,11 +1876,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1948992969157199702, guid: 5141059a05cdfbf4e9e4801cbc2b3260, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 4.81
+      value: 1.74
       objectReference: {fileID: 0}
     - target: {fileID: 1948992969157199702, guid: 5141059a05cdfbf4e9e4801cbc2b3260, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2.55
+      value: 0.97
       objectReference: {fileID: 0}
     - target: {fileID: 1948992969157199702, guid: 5141059a05cdfbf4e9e4801cbc2b3260, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1866,6 +1917,10 @@ PrefabInstance:
     - target: {fileID: 8050403665403330034, guid: 5141059a05cdfbf4e9e4801cbc2b3260, type: 3}
       propertyPath: m_Name
       value: 05_Assassin
+      objectReference: {fileID: 0}
+    - target: {fileID: 8050403665403330034, guid: 5141059a05cdfbf4e9e4801cbc2b3260, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8050403665403330034, guid: 5141059a05cdfbf4e9e4801cbc2b3260, type: 3}
       propertyPath: m_TagString
@@ -1921,20 +1976,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3494cbae0a1a58d47a7cf3258a9ade8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 438907263}
-  prefHpBar: {fileID: 5995936155317214536, guid: 3c7abcbf374df944d89dfb69a4b24fe5, type: 3}
-  canvas: {fileID: 225366704}
-  hpBar_h: 1
   FoundObjects: []
   target: {fileID: 0}
+  tDis: 0
   dirVec: {x: 0, y: 0}
+  animator: {fileID: 438907263}
+  prefHpBar: {fileID: 4446275246991727336, guid: 4c2bcd6ec43dfb24c8de813f858ef374, type: 3}
+  prefMpBar: {fileID: 8311627526140296371, guid: ae34422ffc819bd489a9919e06200357, type: 3}
+  canvas: {fileID: 225366704}
+  hpBar_h: -0.17
+  mpBar_h: -0.26
+  atkDelay: 0
   unitName: 
-  unitHP: 100
-  currentHP: 100
+  unitHP: 1000
+  currentHP: 1000
+  unitMP: 1000
+  currentMP: 1000
   unitMS: 1
-  unitAD: 10
+  unitAD: 100
   unitAS: 1
   unitDis: 1
+  unitType: Priest
   unitState: 0
 --- !u!50 &4502375021186093086
 Rigidbody2D:
@@ -1990,21 +2052,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3494cbae0a1a58d47a7cf3258a9ade8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 634185826}
-  prefHpBar: {fileID: 5995936155317214536, guid: 3c7abcbf374df944d89dfb69a4b24fe5, type: 3}
-  canvas: {fileID: 225366704}
-  hpBar_h: 1
   FoundObjects: []
   target: {fileID: 0}
+  tDis: 0
   dirVec: {x: 0, y: 0}
+  animator: {fileID: 634185826}
+  prefHpBar: {fileID: 4446275246991727336, guid: 4c2bcd6ec43dfb24c8de813f858ef374, type: 3}
+  prefMpBar: {fileID: 8311627526140296371, guid: ae34422ffc819bd489a9919e06200357, type: 3}
+  canvas: {fileID: 225366704}
+  hpBar_h: -0.17
+  mpBar_h: -0.26
+  atkDelay: 0
   unitName: 
-  unitHP: 100
-  currentHP: 100
+  unitHP: 1000
+  currentHP: 1000
+  unitMP: 1000
+  currentMP: 1000
   unitMS: 1
-  unitAD: 10
+  unitAD: 100
   unitAS: 1
   unitDis: 1
-  unitState: 0
+  unitType: Magician
+  unitState: 1
 --- !u!50 &4914191525802154772
 Rigidbody2D:
   serializedVersion: 4
@@ -2059,20 +2128,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3494cbae0a1a58d47a7cf3258a9ade8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 942027910}
-  prefHpBar: {fileID: 5995936155317214536, guid: 3c7abcbf374df944d89dfb69a4b24fe5, type: 3}
-  canvas: {fileID: 225366704}
-  hpBar_h: 1
   FoundObjects: []
   target: {fileID: 0}
+  tDis: 0
   dirVec: {x: 0, y: 0}
+  animator: {fileID: 942027910}
+  prefHpBar: {fileID: 4446275246991727336, guid: 4c2bcd6ec43dfb24c8de813f858ef374, type: 3}
+  prefMpBar: {fileID: 8311627526140296371, guid: ae34422ffc819bd489a9919e06200357, type: 3}
+  canvas: {fileID: 225366704}
+  hpBar_h: -0.17
+  mpBar_h: -0.26
+  atkDelay: 0
   unitName: 
-  unitHP: 100
-  currentHP: 100
+  unitHP: 1000
+  currentHP: 1000
+  unitMP: 1000
+  currentMP: 1000
   unitMS: 1
-  unitAD: 10
+  unitAD: 100
   unitAS: 1
   unitDis: 1
+  unitType: Assassin
   unitState: 0
 --- !u!50 &4965539572207111042
 Rigidbody2D:
@@ -2180,7 +2256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8077281291520189755, guid: 517bac2aab229774383769334ff436f9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.01
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 8077281291520189755, guid: 517bac2aab229774383769334ff436f9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2200,11 +2276,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8077281291520189755, guid: 517bac2aab229774383769334ff436f9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 6.55
+      value: 1.78
       objectReference: {fileID: 0}
     - target: {fileID: 8077281291520189755, guid: 517bac2aab229774383769334ff436f9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.82
+      value: 2.77
       objectReference: {fileID: 0}
     - target: {fileID: 8077281291520189755, guid: 517bac2aab229774383769334ff436f9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2221,6 +2297,10 @@ PrefabInstance:
     - target: {fileID: 8574195584446855331, guid: 517bac2aab229774383769334ff436f9, type: 3}
       propertyPath: m_Name
       value: 04_Priest
+      objectReference: {fileID: 0}
+    - target: {fileID: 8574195584446855331, guid: 517bac2aab229774383769334ff436f9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8574195584446855331, guid: 517bac2aab229774383769334ff436f9, type: 3}
       propertyPath: m_TagString
@@ -2289,7 +2369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2159054271154326577, guid: aea40f2d556c49d4eaa4e6af8bd6ed85, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.02
+      value: -0.04
       objectReference: {fileID: 0}
     - target: {fileID: 2159054271154326577, guid: aea40f2d556c49d4eaa4e6af8bd6ed85, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2309,11 +2389,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2159054271154326577, guid: aea40f2d556c49d4eaa4e6af8bd6ed85, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 4.17
+      value: 1.91
       objectReference: {fileID: 0}
     - target: {fileID: 2159054271154326577, guid: aea40f2d556c49d4eaa4e6af8bd6ed85, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.17
+      value: -2.33
       objectReference: {fileID: 0}
     - target: {fileID: 2159054271154326577, guid: aea40f2d556c49d4eaa4e6af8bd6ed85, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2330,6 +2410,10 @@ PrefabInstance:
     - target: {fileID: 4808607113464614394, guid: aea40f2d556c49d4eaa4e6af8bd6ed85, type: 3}
       propertyPath: m_Name
       value: 02_Archer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808607113464614394, guid: aea40f2d556c49d4eaa4e6af8bd6ed85, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4808607113464614394, guid: aea40f2d556c49d4eaa4e6af8bd6ed85, type: 3}
       propertyPath: m_TagString
@@ -2394,20 +2478,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3494cbae0a1a58d47a7cf3258a9ade8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1042959493}
-  prefHpBar: {fileID: 5995936155317214536, guid: 3c7abcbf374df944d89dfb69a4b24fe5, type: 3}
-  canvas: {fileID: 225366704}
-  hpBar_h: 1
   FoundObjects: []
   target: {fileID: 0}
+  tDis: 0
   dirVec: {x: 0, y: 0}
+  animator: {fileID: 1042959493}
+  prefHpBar: {fileID: 4446275246991727336, guid: 4c2bcd6ec43dfb24c8de813f858ef374, type: 3}
+  prefMpBar: {fileID: 8311627526140296371, guid: ae34422ffc819bd489a9919e06200357, type: 3}
+  canvas: {fileID: 225366704}
+  hpBar_h: -0.17
+  mpBar_h: -0.26
+  atkDelay: 0
   unitName: 
-  unitHP: 100
-  currentHP: 100
+  unitHP: 1000
+  currentHP: 1000
+  unitMP: 1000
+  currentMP: 1000
   unitMS: 1
-  unitAD: 10
+  unitAD: 100
   unitAS: 1
   unitDis: 1
+  unitType: Archer
   unitState: 0
 --- !u!50 &5871524800576922817
 Rigidbody2D:
@@ -2491,7 +2582,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1430795484173909314, guid: 0594e8fe949ea414397c2b8c2c1af22a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.01
+      value: -0.07
       objectReference: {fileID: 0}
     - target: {fileID: 1430795484173909314, guid: 0594e8fe949ea414397c2b8c2c1af22a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2511,11 +2602,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1430795484173909314, guid: 0594e8fe949ea414397c2b8c2c1af22a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 6.69
+      value: 1.94
       objectReference: {fileID: 0}
     - target: {fileID: 1430795484173909314, guid: 0594e8fe949ea414397c2b8c2c1af22a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.68
+      value: -4.15
       objectReference: {fileID: 0}
     - target: {fileID: 1430795484173909314, guid: 0594e8fe949ea414397c2b8c2c1af22a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2556,6 +2647,10 @@ PrefabInstance:
     - target: {fileID: 6230669602694056610, guid: 0594e8fe949ea414397c2b8c2c1af22a, type: 3}
       propertyPath: m_Name
       value: 03_Magician
+      objectReference: {fileID: 0}
+    - target: {fileID: 6230669602694056610, guid: 0594e8fe949ea414397c2b8c2c1af22a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6230669602694056610, guid: 0594e8fe949ea414397c2b8c2c1af22a, type: 3}
       propertyPath: m_TagString
@@ -2628,7 +2723,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2544373436268403860, guid: e20345629edf7f245989db72fefffbbb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 2544373436268403860, guid: e20345629edf7f245989db72fefffbbb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2648,11 +2743,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2544373436268403860, guid: e20345629edf7f245989db72fefffbbb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 2.82
+      value: 1.69
       objectReference: {fileID: 0}
     - target: {fileID: 2544373436268403860, guid: e20345629edf7f245989db72fefffbbb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.12
+      value: -0.78
       objectReference: {fileID: 0}
     - target: {fileID: 2544373436268403860, guid: e20345629edf7f245989db72fefffbbb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2733,20 +2828,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3494cbae0a1a58d47a7cf3258a9ade8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 733813611}
-  prefHpBar: {fileID: 5995936155317214536, guid: 3c7abcbf374df944d89dfb69a4b24fe5, type: 3}
-  canvas: {fileID: 225366704}
-  hpBar_h: 1
   FoundObjects: []
   target: {fileID: 0}
+  tDis: 0
   dirVec: {x: 0, y: 0}
+  animator: {fileID: 733813611}
+  prefHpBar: {fileID: 4446275246991727336, guid: 4c2bcd6ec43dfb24c8de813f858ef374, type: 3}
+  prefMpBar: {fileID: 8311627526140296371, guid: ae34422ffc819bd489a9919e06200357, type: 3}
+  canvas: {fileID: 225366704}
+  hpBar_h: -0.17
+  mpBar_h: -0.26
+  atkDelay: 0
   unitName: 
-  unitHP: 100
-  currentHP: 100
+  unitHP: 1000
+  currentHP: 1000
+  unitMP: 1000
+  currentMP: 1000
   unitMS: 1
-  unitAD: 10
+  unitAD: 100
   unitAS: 1
   unitDis: 1
+  unitType: Warrior
   unitState: 0
 --- !u!50 &9085876442578905573
 Rigidbody2D:
