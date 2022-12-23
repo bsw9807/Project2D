@@ -90,20 +90,6 @@ public class UnitBase : MonoBehaviour
         }
     }
 
-    private void SetUnitStatus(string unitName, float unitHP, float unitMP, float unitMS, float unitAD, float unitAS, float unitDis, string unitType)
-    {
-        unitName = this.unitName;
-        unitHP = this.unitHP;
-        currentHP = this.unitHP;
-        unitMP = this.unitMP;
-        currentMP = this.unitMP;
-        unitMS = this.unitMS;
-        unitAD = this.unitAD;
-        unitAS = this.unitAS;
-        unitDis = this.unitDis;
-        unitType = this.unitType;
-    }
-
     void SetAS(float AS)
     {
         animator.SetFloat("AttackSpeed", AS);
@@ -114,19 +100,23 @@ public class UnitBase : MonoBehaviour
     {
         UnitHpbar();
         UnitMpbar();
+        SetInitState();
         SetAS(unitAS);
-        FindTarget();
     }
 
     void Update()
     {
         UnitHpbarUpdate();
         UnitMpbarUpdate();
-        UnitAI();
         CheckState();
     }
 
     public UnitState unitState = UnitState.idle;
+
+    void SetInitState()
+    {
+        unitState = UnitState.idle;
+    }
 
     void SetState(UnitState state)
     {
@@ -135,12 +125,14 @@ public class UnitBase : MonoBehaviour
         {
             case UnitState.idle:
                 #region Anim
+                animator.SetTrigger("Run");
                 animator.SetFloat("Runstate", 0f);
                 #endregion
                 break;
 
             case UnitState.run:
                 #region Anim
+                animator.SetTrigger("Run");
                 animator.SetFloat("Runstate", 0.5f);
                 #endregion
                 break;
@@ -163,6 +155,7 @@ public class UnitBase : MonoBehaviour
 
             case UnitState.stun:
                 #region Anim
+                animator.SetTrigger("Run");
                 animator.SetFloat("Runstate", 1.0f);
                 #endregion
                 break;
@@ -184,11 +177,12 @@ public class UnitBase : MonoBehaviour
                 break;
 
             case UnitState.run:
-                MoveToTarget();
+                FindTarget();
+                DoMove();
                 break;
 
             case UnitState.attack:
-                AttackTarget();
+                CheckAttack();
                 break;
 
             case UnitState.skill:
@@ -198,38 +192,10 @@ public class UnitBase : MonoBehaviour
                 break;
 
             case UnitState.dead:
-                onDie();
+                OnDie();
                 break;
         }
 
-    }
-
-    void UnitAI()
-    {
-        atkDelay += Time.deltaTime;
-        if (atkDelay >= unitAS) atkDelay = 0;
-        
-        float dis = Vector3.Distance(transform.position, target.transform.position);
-
-
-        if (CheckTarget())      // ≈∏∞Ÿ¿Ã ¿÷¿∏∏È
-        {
-            FaceTarget();
-            if (dis <= unitDis && atkDelay == 0)
-            {
-                unitState = UnitState.attack;
-            }
-            else
-            {
-                unitState = UnitState.run;
-            }
-        }
-        else
-        {
-            unitState = UnitState.idle;
-        }
-
-        SetState(unitState);
     }
 
     void FindTarget()
@@ -255,6 +221,9 @@ public class UnitBase : MonoBehaviour
                 tDis = Dis;
             }
         }
+
+        if (target != null) SetState(UnitState.run);
+        else SetState(UnitState.idle);
     }
 
     void FaceTarget()   //≈∏∞Ÿ πŸ∂Û∫∏±‚
@@ -269,24 +238,46 @@ public class UnitBase : MonoBehaviour
         }
     }
 
-    void AttackTarget() //≈∏∞Ÿ ∞¯∞›
+    void CheckAttack() //≈∏∞Ÿ ∞¯∞›
     {
-        target.GetComponent<UnitBase>().currentHP -= unitAD;
+        atkDelay += Time.deltaTime;
+        if(atkDelay > unitAS)
+        {
+            DoAttack();
+            atkDelay = 0;
+        }
     }
 
-    void MoveToTarget() //≈∏∞Ÿ¿∏∑Œ ¿Ãµø
+    void DoAttack()
     {
-        Vector2 dir = (Vector2)(target.transform.localPosition - transform.position);
-        dirVec = dir.normalized;
+        animator.SetTrigger("Attack");
+        animator.SetFloat("AttackState", 0.0f);
+        animator.SetFloat("NormalState", 0.0f); // 0.0: Sword // 0.5: Bow // 1.0: Magic
+    }
+
+    void DoMove() //≈∏∞Ÿ¿∏∑Œ ¿Ãµø
+    {
+        if (CheckTarget()) return;
+
+        Vector2 tVec = (Vector2)(target.transform.localPosition - transform.position);
+
+        float tDis = tVec.sqrMagnitude;
+
+        if(tDis <= unitDis * unitDis)
+        {
+            SetState(UnitState.attack);
+            return;
+        }
+
+        dirVec = tVec.normalized;
         transform.position += (Vector3)dirVec * unitMS * Time.deltaTime;
     }
 
-    void onDie() // ¿Ø¥÷ ªÁ∏¡ »ƒ Ω««‡
+    void OnDie() // ¿Ø¥÷ ªÁ∏¡ »ƒ Ω««‡
     {
-        Destroy(gameObject, 1);
-        Destroy(hpBar.gameObject, 1);
-        Destroy(mpBar.gameObject, 1);
-        unitState = UnitState.dead;
+        Destroy(gameObject, 3);
+        Destroy(hpBar.gameObject, 3);
+        Destroy(mpBar.gameObject, 3);
     }
 
     bool CheckTarget()
