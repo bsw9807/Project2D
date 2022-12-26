@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 
 public class UnitBase : MonoBehaviour
@@ -10,10 +11,12 @@ public class UnitBase : MonoBehaviour
     public GameObject target;
     public float tDis;
     public Vector2 dirVec;
+    public Vector2 tempDis;
 
     public Animator animator;
     public GameObject prefHpBar;
     public GameObject prefMpBar;
+    public GameObject prefText;
     public GameObject canvas;
     public float hpBar_h;
     public float mpBar_h;
@@ -21,6 +24,10 @@ public class UnitBase : MonoBehaviour
     RectTransform mpBar;
     Image currentHPbar;
     Image currentMPbar;
+    TextMeshPro text;
+
+
+    public UnitState unitState = UnitState.idle;
 
     public float atkDelay;  // 공격 딜레이
 
@@ -33,7 +40,7 @@ public class UnitBase : MonoBehaviour
     public float unitAD;    // 공격력
     public float unitAS;    // 공격 속도
     public float unitDis;   // 공격 범위
-    public string unitType;  // 유닛 타입
+    public UnitType unitType;  // 유닛 타입
 
     public enum UnitState
     {
@@ -68,7 +75,7 @@ public class UnitBase : MonoBehaviour
 
         if (currentHP <= 0)
         {
-            unitState = UnitState.dead;
+            OnDie();
         }
     }
 
@@ -111,8 +118,6 @@ public class UnitBase : MonoBehaviour
         CheckState();
     }
 
-    public UnitState unitState = UnitState.idle;
-
     void SetInitState()
     {
         unitState = UnitState.idle;
@@ -125,23 +130,19 @@ public class UnitBase : MonoBehaviour
         {
             case UnitState.idle:
                 #region Anim
-                animator.SetTrigger("Run");
-                animator.SetFloat("Runstate", 0f);
+                animator.SetFloat("RunState", 0f);
                 #endregion
                 break;
 
             case UnitState.run:
                 #region Anim
-                animator.SetTrigger("Run");
-                animator.SetFloat("Runstate", 0.5f);
+                animator.SetFloat("RunState", 0.5f);
                 #endregion
                 break;
 
             case UnitState.attack:
                 #region Anim
-                animator.SetTrigger("Attack");
-                animator.SetFloat("AttackState", 0.0f);
-                animator.SetFloat("NormalState", 0.0f); // 0.0: Sword // 0.5: Bow // 1.0: Magic
+                animator.SetFloat("RunState", 0f);
                 #endregion
                 break;
 
@@ -155,8 +156,7 @@ public class UnitBase : MonoBehaviour
 
             case UnitState.stun:
                 #region Anim
-                animator.SetTrigger("Run");
-                animator.SetFloat("Runstate", 1.0f);
+                animator.SetFloat("RunState", 1.0f);
                 #endregion
                 break;
 
@@ -226,7 +226,7 @@ public class UnitBase : MonoBehaviour
         else SetState(UnitState.idle);
     }
 
-    void FaceTarget()   //타겟 바라보기
+    void FaceTarget()
     {
         if (target.transform.position.x - transform.position.x < 0)
         {
@@ -238,8 +238,11 @@ public class UnitBase : MonoBehaviour
         }
     }
 
-    void CheckAttack() //타겟 공격
+    void CheckAttack()
     {
+        if (!CheckTarget()) return;
+        if (!CheckDist()) return;
+
         atkDelay += Time.deltaTime;
         if(atkDelay > unitAS)
         {
@@ -248,33 +251,43 @@ public class UnitBase : MonoBehaviour
         }
     }
 
+    bool CheckDist()
+    {
+        tempDis = (Vector2)(target.transform.localPosition - transform.position);
+        float tDis = tempDis.sqrMagnitude;
+        if (tDis <= unitDis * unitDis)
+        {
+            SetState(UnitState.attack);
+            return true;
+        }
+        else
+        {
+            if (!CheckTarget()) SetState(UnitState.idle);
+            else SetState(UnitState.run);
+            return false;
+        }
+    }
+
     void DoAttack()
     {
         animator.SetTrigger("Attack");
         animator.SetFloat("AttackState", 0.0f);
         animator.SetFloat("NormalState", 0.0f); // 0.0: Sword // 0.5: Bow // 1.0: Magic
+        GetComponent<UnitBase>().currentHP -= unitAD;
     }
 
     void DoMove() //타겟으로 이동
     {
-        if (CheckTarget()) return;
-
-        Vector2 tVec = (Vector2)(target.transform.localPosition - transform.position);
-
-        float tDis = tVec.sqrMagnitude;
-
-        if(tDis <= unitDis * unitDis)
-        {
-            SetState(UnitState.attack);
-            return;
-        }
-
-        dirVec = tVec.normalized;
+        if (!CheckTarget()) return;
+        CheckDist();
+        dirVec = tempDis.normalized;
+        FaceTarget();
         transform.position += (Vector3)dirVec * unitMS * Time.deltaTime;
     }
 
     void OnDie() // 유닛 사망 후 실행
     {
+        SetState(UnitState.dead);
         Destroy(gameObject, 3);
         Destroy(hpBar.gameObject, 3);
         Destroy(mpBar.gameObject, 3);
@@ -282,13 +295,19 @@ public class UnitBase : MonoBehaviour
 
     bool CheckTarget()
     {
+        bool value = true;
         if (target == null)
             return false;
         if (target.GetComponent<UnitBase>().unitState == UnitState.dead)
             return false;
         if (!target.activeInHierarchy) 
             return false;
+
+        if (!value)
+        {
+            SetState(UnitState.idle);
+        }
         
-        return true;
+        return value;
     }
 }
