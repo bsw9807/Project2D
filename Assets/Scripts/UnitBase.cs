@@ -16,16 +16,16 @@ public class UnitBase : MonoBehaviour
     public Animator animator;
     public GameObject prefHpBar;
     public GameObject prefMpBar;
-    public GameObject prefText;
+    public GameObject prefDmgText;
     public GameObject canvas;
     public float hpBar_h;
     public float mpBar_h;
+    public float dmgText_h;
     RectTransform hpBar;
     RectTransform mpBar;
+    RectTransform dmgText;
     Image currentHPbar;
     Image currentMPbar;
-    TextMeshPro text;
-
 
     public UnitState unitState = UnitState.idle;
 
@@ -79,6 +79,14 @@ public class UnitBase : MonoBehaviour
         }
     }
 
+    public void DamageText(float dmg)
+    {
+        dmgText = Instantiate(prefDmgText, canvas.transform).GetComponent<RectTransform>();
+        Vector3 dmgTextPos = Camera.main.WorldToScreenPoint(new Vector3(target.transform.localPosition.x, target.transform.localPosition.y + dmgText_h, 0));
+        dmgText.position = dmgTextPos;
+        dmgText.GetComponent<DamageText>().damage = target.GetComponent<UnitBase>().unitAD;
+    }
+
     void UnitMpbar()
     {
         mpBar = Instantiate(prefMpBar, canvas.transform).GetComponent<RectTransform>();
@@ -90,11 +98,6 @@ public class UnitBase : MonoBehaviour
         Vector3 mpBarPos = Camera.main.WorldToScreenPoint(new Vector3(transform.position.x, transform.position.y + mpBar_h, 0));
         mpBar.position = mpBarPos;
         currentMPbar.fillAmount = currentMP / unitMP;
-
-        if (currentMP <= 0)
-        {
-            unitState = UnitState.dead;
-        }
     }
 
     void SetAS(float AS)
@@ -271,9 +274,10 @@ public class UnitBase : MonoBehaviour
     void DoAttack()
     {
         animator.SetTrigger("Attack");
-        animator.SetFloat("AttackState", 0.0f);
+        animator.SetFloat("AttackState", 0.0f); // 0.0: Sword // 0.5: Bow // 1.0: Magic
         animator.SetFloat("NormalState", 0.0f); // 0.0: Sword // 0.5: Bow // 1.0: Magic
-        GetComponent<UnitBase>().currentHP -= unitAD;
+        target.GetComponent<UnitBase>().currentHP -= unitAD;
+        DamageText(unitAD);
     }
 
     void DoMove() //타겟으로 이동
