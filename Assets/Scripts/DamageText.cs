@@ -5,20 +5,23 @@ using TMPro;
 
 public class DamageText : MonoBehaviour
 {
-    private float destroyTime;
-    TextMeshPro text;
+    TextMeshProUGUI textMP;
+
+    public float textSpeed;
+    public float destroyTime;
     public float damage;
 
     void Start()
     {
-        destroyTime = 0.5f;
-        text = GetComponent<TextMeshPro>();
-        text.text = damage.ToString();
-        Invoke("DestroyObj", destroyTime);
+        textMP = GetComponent<TextMeshProUGUI>();
+        Destroy(gameObject, destroyTime);
+        Debug.Log(damage);
+        textMP.text = damage.ToString();
     }
 
-    private void DestroyObj()
+    void Update()
     {
-        Destroy(gameObject);
+        transform.Translate(Vector3.up * Time.deltaTime * textSpeed);
     }
+
 }

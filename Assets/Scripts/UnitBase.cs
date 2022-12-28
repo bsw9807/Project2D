@@ -59,7 +59,7 @@ public class UnitBase : MonoBehaviour
         Magician,
         Priest,
         Assassin
-    }           // 미적용
+    }
 
     void UnitHpbar()
     {
@@ -79,12 +79,15 @@ public class UnitBase : MonoBehaviour
         }
     }
 
-    public void DamageText(float dmg)
+    public void DamageText()
     {
-        dmgText = Instantiate(prefDmgText, canvas.transform).GetComponent<RectTransform>();
-        Vector3 dmgTextPos = Camera.main.WorldToScreenPoint(new Vector3(target.transform.localPosition.x, target.transform.localPosition.y + dmgText_h, 0));
+        dmgText = Instantiate(prefDmgText, target.GetComponent<UnitBase>().canvas.transform).GetComponent<RectTransform>();
+
+        dmgText.GetComponent<DamageText>().damage = -GetComponent<UnitBase>().unitAD;
+
+        Vector3 dmgTextPos = Camera.main.WorldToScreenPoint(new Vector3(target.transform.position.x, target.transform.position.y + dmgText_h, 0));
+
         dmgText.position = dmgTextPos;
-        dmgText.GetComponent<DamageText>().damage = target.GetComponent<UnitBase>().unitAD;
     }
 
     void UnitMpbar()
@@ -180,7 +183,6 @@ public class UnitBase : MonoBehaviour
                 break;
 
             case UnitState.run:
-                FindTarget();
                 DoMove();
                 break;
 
@@ -201,6 +203,33 @@ public class UnitBase : MonoBehaviour
 
     }
 
+    void CheckType()
+    {
+        switch (unitType)
+        {
+            case UnitType.Warrior:
+                animator.SetFloat("AttackState", 0.0f); // 0.0: Attack // 1.0: Skill
+                animator.SetFloat("NormalState", 0.0f); // 0.0: Sword // 0.5: Bow // 1.0: Magic
+                break;
+            case UnitType.Archer:
+                animator.SetFloat("AttackState", 0.0f); // 0.0: Attack // 1.0: Skill
+                animator.SetFloat("NormalState", 0.5f); // 0.0: Sword // 0.5: Bow // 1.0: Magic
+                break;
+            case UnitType.Magician:
+                animator.SetFloat("AttackState", 0.0f); // 0.0: Attack // 1.0: Skill
+                animator.SetFloat("NormalState", 1.0f); // 0.0: Sword // 0.5: Bow // 1.0: Magic
+                break;
+            case UnitType.Priest:
+                animator.SetFloat("AttackState", 0.0f); // 0.0: Attack // 1.0: Skill
+                animator.SetFloat("NormalState", 1.0f); // 0.0: Sword // 0.5: Bow // 1.0: Magic
+                break;
+            case UnitType.Assassin:
+                animator.SetFloat("AttackState", 0.0f); // 0.0: Attack // 1.0: Skill
+                animator.SetFloat("NormalState", 0.0f); // 0.0: Sword // 0.5: Bow // 1.0: Magic
+                break;
+        }
+    }
+
     void FindTarget()
     {
         switch(gameObject.tag)
@@ -218,11 +247,23 @@ public class UnitBase : MonoBehaviour
         {
             float Dis = Vector2.Distance(gameObject.transform.position, found.transform.position);
 
-            if(Dis < tDis)
+            if (unitType == UnitType.Assassin)
             {
-                target = found;
-                tDis = Dis;
+                if (Dis < tDis)
+                {
+                    target = found;
+                    tDis = Dis;
+                }
             }
+            else
+            {
+                if (Dis < tDis)
+                {
+                    target = found;
+                    tDis = Dis;
+                }
+            }
+            
         }
 
         if (target != null) SetState(UnitState.run);
@@ -274,10 +315,10 @@ public class UnitBase : MonoBehaviour
     void DoAttack()
     {
         animator.SetTrigger("Attack");
-        animator.SetFloat("AttackState", 0.0f); // 0.0: Sword // 0.5: Bow // 1.0: Magic
-        animator.SetFloat("NormalState", 0.0f); // 0.0: Sword // 0.5: Bow // 1.0: Magic
+        CheckType();
+
         target.GetComponent<UnitBase>().currentHP -= unitAD;
-        DamageText(unitAD);
+        DamageText();
     }
 
     void DoMove() //타겟으로 이동
@@ -292,26 +333,24 @@ public class UnitBase : MonoBehaviour
     void OnDie() // 유닛 사망 후 실행
     {
         SetState(UnitState.dead);
-        Destroy(gameObject, 3);
-        Destroy(hpBar.gameObject, 3);
-        Destroy(mpBar.gameObject, 3);
+        Destroy(gameObject, 0.5f);
     }
 
     bool CheckTarget()
     {
         bool value = true;
         if (target == null)
-            return false;
+            value = false;
         if (target.GetComponent<UnitBase>().unitState == UnitState.dead)
-            return false;
-        if (!target.activeInHierarchy) 
-            return false;
+            value = false;
+        if (!target.activeInHierarchy)
+            value = false;
 
         if (!value)
         {
             SetState(UnitState.idle);
         }
-        
+
         return value;
     }
 }

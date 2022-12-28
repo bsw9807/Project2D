@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 974818142107807483}
   - component: {fileID: 974818142107807428}
   - component: {fileID: 974818142107807429}
-  - component: {fileID: 974818142107807482}
   - component: {fileID: 8509662668130462939}
   m_Layer: 5
   m_Name: DamageText
@@ -27,7 +26,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 974818142107807480}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -38,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1, y: 1}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &974818142107807428
 CanvasRenderer:
@@ -137,26 +136,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!95 &974818142107807482
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 974818142107807480}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d000a7040b5fc1d4c8e65045b7a05275, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &8509662668130462939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,4 +148,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eb5da1bee5032e4ba3dae02a5064b61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  textSpeed: 15
+  destroyTime: 0.7
