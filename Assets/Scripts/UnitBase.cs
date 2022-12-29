@@ -183,6 +183,7 @@ public class UnitBase : MonoBehaviour
                 break;
 
             case UnitState.run:
+                FindTarget();
                 DoMove();
                 break;
 
@@ -247,7 +248,7 @@ public class UnitBase : MonoBehaviour
         {
             float Dis = Vector2.Distance(gameObject.transform.position, found.transform.position);
 
-            if (unitType == UnitType.Assassin)
+            /*if (unitType == UnitType.Assassin)
             {
                 if (Dis < tDis)
                 {
@@ -256,13 +257,13 @@ public class UnitBase : MonoBehaviour
                 }
             }
             else
-            {
+            {*/
                 if (Dis < tDis)
                 {
                     target = found;
                     tDis = Dis;
                 }
-            }
+            //}
             
         }
 
