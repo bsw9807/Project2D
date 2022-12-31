@@ -8,6 +8,7 @@ using TMPro;
 public class BattleManager : MonoBehaviour
 {
     public TextMeshProUGUI[] timeText;
+
     private float time = 90;
     int min, sec;
 
