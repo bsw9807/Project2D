@@ -519,7 +519,7 @@ MonoBehaviour:
   currentMP: 1000
   unitMS: 3
   unitAD: 200
-  unitAS: 1
+  unitAS: 3
   unitDis: 1
   unitType: 4
 --- !u!50 &80275040
@@ -1233,6 +1233,7 @@ GameObject:
   - component: {fileID: 295050811}
   - component: {fileID: 295050810}
   - component: {fileID: 295050809}
+  - component: {fileID: 295050812}
   m_Layer: 5
   m_Name: TipBtn
   m_TagString: Untagged
@@ -1304,7 +1305,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 295050810}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 295050807}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &295050810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1343,6 +1356,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 295050807}
   m_CullTransparentMesh: 1
+--- !u!114 &295050812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295050807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac7dc9594ba1ac488db06605652e23e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamePausePanel: {fileID: 1712609203}
 --- !u!1 &322264234
 GameObject:
   m_ObjectHideFlags: 0
@@ -2174,7 +2200,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &570386613
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2285,7 +2311,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 597368261}
-        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
         m_MethodName: PauseBtn
         m_Mode: 1
         m_Arguments:
@@ -2507,7 +2533,7 @@ MonoBehaviour:
   currentMP: 1000
   unitMS: 1
   unitAD: 200
-  unitAS: 1
+  unitAS: 3
   unitDis: 5
   unitType: 3
 --- !u!50 &624109606
@@ -3181,7 +3207,7 @@ MonoBehaviour:
   currentMP: 1000
   unitMS: 1
   unitAD: 200
-  unitAS: 1
+  unitAS: 3
   unitDis: 5
   unitType: 1
 --- !u!50 &834467725
@@ -3217,6 +3243,7 @@ GameObject:
   - component: {fileID: 840208416}
   - component: {fileID: 840208415}
   - component: {fileID: 840208414}
+  - component: {fileID: 840208417}
   m_Layer: 5
   m_Name: Btn_gotoMain
   m_TagString: Untagged
@@ -3289,7 +3316,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 840208415}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 840208417}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: GoToMainBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &840208415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3328,6 +3367,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 840208412}
   m_CullTransparentMesh: 1
+--- !u!114 &840208417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840208412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac7dc9594ba1ac488db06605652e23e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamePausePanel: {fileID: 1712609203}
 --- !u!1 &882272755
 GameObject:
   m_ObjectHideFlags: 0
@@ -3779,6 +3831,7 @@ GameObject:
   - component: {fileID: 1021772612}
   - component: {fileID: 1021772611}
   - component: {fileID: 1021772610}
+  - component: {fileID: 1021772613}
   m_Layer: 5
   m_Name: Btn_gotoNext
   m_TagString: Untagged
@@ -3851,7 +3904,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1021772611}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1021772613}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: GoToNextBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1021772611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3890,6 +3955,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1021772608}
   m_CullTransparentMesh: 1
+--- !u!114 &1021772613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021772608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac7dc9594ba1ac488db06605652e23e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamePausePanel: {fileID: 1712609203}
 --- !u!95 &1042959493 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 6940463787431396904, guid: aea40f2d556c49d4eaa4e6af8bd6ed85, type: 3}
@@ -4242,7 +4320,7 @@ MonoBehaviour:
   currentMP: 1000
   unitMS: 1
   unitAD: 100
-  unitAS: 1
+  unitAS: 3
   unitDis: 1
   unitType: 0
 --- !u!50 &1075824125
@@ -5629,6 +5707,7 @@ GameObject:
   - component: {fileID: 1447816753}
   - component: {fileID: 1447816752}
   - component: {fileID: 1447816751}
+  - component: {fileID: 1447816754}
   m_Layer: 5
   m_Name: Btn_TryAgain
   m_TagString: Untagged
@@ -5701,7 +5780,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1447816752}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1447816754}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: TryAgainBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1447816752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5740,6 +5831,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1447816749}
   m_CullTransparentMesh: 1
+--- !u!114 &1447816754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1447816749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac7dc9594ba1ac488db06605652e23e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamePausePanel: {fileID: 1712609203}
 --- !u!1 &1448117162
 GameObject:
   m_ObjectHideFlags: 0
@@ -7192,7 +7296,7 @@ MonoBehaviour:
   currentMP: 1000
   unitMS: 1
   unitAD: 200
-  unitAS: 1
+  unitAS: 3
   unitDis: 5
   unitType: 2
 --- !u!50 &1715192881
@@ -8235,6 +8339,7 @@ GameObject:
   - component: {fileID: 2032709092}
   - component: {fileID: 2032709091}
   - component: {fileID: 2032709090}
+  - component: {fileID: 2032709093}
   m_Layer: 5
   m_Name: GameSpeedBtn
   m_TagString: Untagged
@@ -8307,7 +8412,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2032709091}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2032709093}
+        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_MethodName: GameSpeedBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2032709091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8346,6 +8463,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2032709088}
   m_CullTransparentMesh: 1
+--- !u!114 &2032709093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032709088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac7dc9594ba1ac488db06605652e23e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamePausePanel: {fileID: 0}
 --- !u!1 &2057806498
 GameObject:
   m_ObjectHideFlags: 0
@@ -9121,7 +9251,7 @@ MonoBehaviour:
   currentMP: 1000
   unitMS: 1
   unitAD: 200
-  unitAS: 1
+  unitAS: 3
   unitDis: 5
   unitType: 3
 --- !u!50 &4502375021186093086
@@ -9200,7 +9330,7 @@ MonoBehaviour:
   currentMP: 1000
   unitMS: 1
   unitAD: 200
-  unitAS: 1
+  unitAS: 3
   unitDis: 5
   unitType: 2
 --- !u!50 &4914191525802154772
@@ -9279,7 +9409,7 @@ MonoBehaviour:
   currentMP: 1000
   unitMS: 3
   unitAD: 200
-  unitAS: 1
+  unitAS: 3
   unitDis: 1
   unitType: 4
 --- !u!50 &4965539572207111042
@@ -9632,7 +9762,7 @@ MonoBehaviour:
   currentMP: 1000
   unitMS: 1
   unitAD: 200
-  unitAS: 1
+  unitAS: 3
   unitDis: 5
   unitType: 1
 --- !u!50 &5871524800576922817
@@ -9985,7 +10115,7 @@ MonoBehaviour:
   currentMP: 1000
   unitMS: 1
   unitAD: 100
-  unitAS: 1
+  unitAS: 3
   unitDis: 1
   unitType: 0
 --- !u!50 &9085876442578905573
