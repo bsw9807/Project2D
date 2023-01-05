@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 
 public class ButtonManager : MonoBehaviour
 {
     public GameObject gamePausePanel;
+    public TextMeshProUGUI gameSpeedText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,19 +36,19 @@ public class ButtonManager : MonoBehaviour
 
     public void GoToMainBtn()
     {
+        Time.timeScale = 1;
         LoadingSceneManager.LoadScene("Scene_Lobby");
-        Debug.Log("로비로 이동");
     }
 
     public void TryAgainBtn()
     {
-        Debug.Log("준비로 이동");
+        Time.timeScale = 1;
         LoadingSceneManager.LoadScene("Scene_Ready");
     }
 
     public void GoToNextBtn()
     {
-        Debug.Log("배틀2로 이동");
+        Time.timeScale = 1;
         LoadingSceneManager.LoadScene("Scene_Battle2");
     }
 
@@ -59,12 +62,15 @@ public class ButtonManager : MonoBehaviour
         {
             case 1:
                 Time.timeScale = 2;
+                gameSpeedText.text = "X2";
                 break;
             case 2:
                 Time.timeScale = 3;
+                gameSpeedText.text = "X3";
                 break;
             case 3:
                 Time.timeScale = 1;
+                gameSpeedText.text = "X1";
                 break;
         }
     }

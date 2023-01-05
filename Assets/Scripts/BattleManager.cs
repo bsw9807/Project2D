@@ -8,6 +8,12 @@ using TMPro;
 public class BattleManager : MonoBehaviour
 {
     public TextMeshProUGUI[] timeText;
+    public GameObject gameOverPanel;
+    public GameObject clear;
+    public GameObject defeat;
+    public GameObject gotoMain;
+    public GameObject gotoNext;
+    public GameObject tryAgain;
 
     private float time = 90;
     int min, sec;
@@ -46,6 +52,17 @@ public class BattleManager : MonoBehaviour
                 if (sec <= 9) timeText[1].text = "0" + sec.ToString();
                 else timeText[1].text = sec.ToString();
             }
+        }
+
+        if (min == 0 && sec == 0)
+        {
+            Time.timeScale = 0;
+            gameOverPanel.SetActive(true);
+            clear.SetActive(false);
+            defeat.SetActive(true);
+            gotoMain.SetActive(true);
+            gotoNext.SetActive(false);
+            tryAgain.SetActive(true);
         }
     }
 }
