@@ -10,16 +10,6 @@ public class ButtonManager : MonoBehaviour
     public GameObject gamePausePanel;
     public TextMeshProUGUI gameSpeedText;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     public void PauseBtn()
     {
         gamePausePanel.SetActive(true);
@@ -49,7 +39,13 @@ public class ButtonManager : MonoBehaviour
     public void GoToNextBtn()
     {
         Time.timeScale = 1;
-        LoadingSceneManager.LoadScene("Scene_Battle2");
+        LoadingSceneManager.LoadScene("Scene_Battle");
+    }
+
+    public void GoToBattleBtn()
+    {
+        Time.timeScale = 1;
+        LoadingSceneManager.LoadScene("Scene_Battle");
     }
 
     public void TipBtn()
